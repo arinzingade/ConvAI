@@ -22,7 +22,7 @@ users_collection = db.users
 def get_data():
     return jsonify({"message": "Hello From Flask"})
 
-@app.route('/signup', methods = ['POST'])
+@app.route('/api/signup', methods = ['POST'])
 def signup():
     data = request.json
 
@@ -45,7 +45,7 @@ def signup():
     return jsonify({"message": "Signup successful"}), 201   
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/api/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -64,7 +64,7 @@ def login():
     return jsonify({"message": "Login successful"}), 200
 
 
-@app.route('/logout', methods=['POST'])
+@app.route('/api/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
     return jsonify({"message": "Logout successful"}), 200
