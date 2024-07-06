@@ -8,7 +8,6 @@ app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
 CORS(app)
 
-# MongoDB connection setup
 mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
 db = client.mydatabase
@@ -29,11 +28,9 @@ def signup():
     if not username or not email or not password:
         return jsonify({"message": "All fields are required"}), 400
 
-    # Check if username or email already exists
     if users_collection.find_one({"$or": [{"username": username}, {"email": email}]}):
         return jsonify({"message": "Username or email already exists"}), 400
 
-    # Hash password before storing
     hashed_password = generate_password_hash(password)
     users_collection.insert_one({"username": username, "email": email, "password": hashed_password})
 
