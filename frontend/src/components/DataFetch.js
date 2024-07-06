@@ -13,6 +13,7 @@ function DataFetcher() {
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
+  
   return (
     <div>
       {data ? <p>Data received: {data.message} </p> : <p>Loading...</p>}
