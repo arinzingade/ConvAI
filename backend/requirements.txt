@@ -1,6 +1,6 @@
 
 flask
-werkzeug
+flask_cors
 pymongo
-donenv
-os
+werkzeug
+dotenv-python
