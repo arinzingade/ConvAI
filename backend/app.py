@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.secret_key = 'whiteKnight'
 CORS(app,origins=["http://localhost:3000"],supports_credentials=True)
  
+ 
 mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
 db = client.mydatabase
