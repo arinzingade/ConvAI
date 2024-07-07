@@ -2,4 +2,8 @@ flask
 flask_cors
 pymongo
 werkzeug
+<<<<<<< HEAD
 python-dotenv
+=======
+python-dotenv
+>>>>>>> main
