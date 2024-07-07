@@ -11,8 +11,8 @@ load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'whiteKnight'
-CORS(app)
-
+CORS(app,origins=["http://localhost:3000"],supports_credentials=True)
+ 
 mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
 db = client.mydatabase
@@ -25,7 +25,6 @@ def get_data():
 @app.route('/api/signup', methods = ['POST'])
 def signup():
     data = request.json
-
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')

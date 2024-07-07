@@ -4,20 +4,26 @@ const SignUp = () => {
     const [username,setUsername]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-    async function handleSubmit(){
-        const response = await fetch('http://localhost:5000/api/signup',{
-            method:'POST',
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({username,email,password}),
-            credentials:true,
-           })
-           if(response.ok){
-            alert('user created ')
-           }else{
-            alert('not created')
-           }
+    async function handleSubmit(e){
+      e.preventDefault()
+      try{
+        const response = await fetch('http://127.0.0.1:5000/api/signup',{
+          method:'POST',
+          headers:{
+              'Content-Type':'application/json'
+          },
+          body:JSON.stringify({username,email,password}),
+       credentials:'include'
+         })
+         if(response.ok){
+          alert('user created ')
+         }else{
+          alert('not created')
+         }
+      }catch(error){
+        console.log(error)
+      }
+       
         
     }
   return (

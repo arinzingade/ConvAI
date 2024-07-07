@@ -13,8 +13,9 @@ const Login = () => {
         'Content-Type':'application/json'
     },
     body:JSON.stringify({username,email,password}),
-    credentials:true,
+    credentials:'include',
    })
+   
    if(response.ok){
     alert('successfully logged in')
    }else{
