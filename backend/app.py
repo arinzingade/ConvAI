@@ -6,7 +6,7 @@ import os
 
 app = Flask(__name__)
 app.secret_key = os.getenv('FLASK_SECRET_KEY')
-CORS(app)
+CORS(app, supports_credentials=True)
 
 mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
