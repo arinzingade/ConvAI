@@ -1,11 +1,14 @@
 import React from 'react'
 import { useState } from 'react'
 import {  useNavigate } from 'react-router-dom'
+import useStore from '../storage/store'
+
 
 const Login = () => {
     const [username,setUsername]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
+    const setTokenVerified = useStore((state)=>state.setTokenVerified)
    const navigate = useNavigate()
    async  function handleSubmit(e){
     e.preventDefault()
@@ -19,7 +22,7 @@ const Login = () => {
    })
    
    if(response.ok){
-    alert('successfully logged in')
+    setTokenVerified(true)
     navigate('/')
    }else{
     alert('not logged in')
