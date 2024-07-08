@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
 function App() {
+  
   return (
     <>
     <div className='w-full flex justify-between p-5'>
@@ -15,6 +16,9 @@ function App() {
          </div>
       <div>
         <Link to='/login'>login</Link>
+      </div>
+      <div>
+        profile
       </div>
       </div>
     
