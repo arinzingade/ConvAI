@@ -1,9 +1,10 @@
+
+Flask
 flask
 flask_cors
 pymongo
 werkzeug
-<<<<<<< HEAD
 python-dotenv
-=======
-python-dotenv
->>>>>>> main
+email_validator
+lask_jwt_extended
+
