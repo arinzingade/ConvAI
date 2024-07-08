@@ -7,7 +7,7 @@ import { HomePage } from './components/HomePage';
 import useStore from './storage/store';
 import { CheckVerification } from './services/CheckVerification';
 function App() {
-  const setTokenVerified = useStore()
+  const setTokenVerified = useStore((state)=>state.setTokenVerified)
   useEffect(()=>{
     async function Verification(){
       const response = await CheckVerification()
