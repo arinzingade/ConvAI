@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import { HomePage } from './components/HomePage';
-
+import useStore from './storage/store';
+import { CheckVerification } from './services/CheckVerification';
 function App() {
-  
+  const setTokenVerified = useStore()
+  useEffect(()=>{
+    async function Verification(){
+      const response = await CheckVerification()
+      setTokenVerified(response)
+    }
+    Verification()
+  },[setTokenVerified])
   return (
     <>
      <BrowserRouter >
