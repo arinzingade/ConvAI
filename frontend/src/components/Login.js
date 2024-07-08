@@ -1,13 +1,15 @@
 import React from 'react'
 import { useState } from 'react'
+import {  useNavigate } from 'react-router-dom'
 
 const Login = () => {
     const [username,setUsername]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-   
-   async  function handleSubmit(){
-   const response = await fetch('http://localhost:5000/api/login',{
+   const navigate = useNavigate()
+   async  function handleSubmit(e){
+    e.preventDefault()
+   const response = await fetch('http://127.0.0.1:5000/api/login',{
     method:'POST',
     headers:{
         'Content-Type':'application/json'
@@ -18,6 +20,7 @@ const Login = () => {
    
    if(response.ok){
     alert('successfully logged in')
+    navigate('/')
    }else{
     alert('not logged in')
    }
