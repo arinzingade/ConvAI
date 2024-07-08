@@ -1,28 +1,21 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+import { HomePage } from './components/HomePage';
 
 function App() {
   
   return (
     <>
-    <div className='w-full flex justify-between p-5'>
-      <div>
-        convAI
-      </div>
-      <div className='flex gap-10'>
-      <div >
-       <Link to='/signUp'> sign up</Link>
-         </div>
-      <div>
-        <Link to='/login'>login</Link>
-      </div>
-      <div>
-        profile
-      </div>
-      </div>
-    
-    </div>
+     <BrowserRouter >
+    <Routes>
+      <Route path='/' element={<HomePage/>}></Route>
+      <Route path='/login' element={<Login/>}></Route>
+      <Route path='/signUp' element={<SignUp/>}></Route>
+    </Routes>
+    </BrowserRouter>
     </>
   );
 }
