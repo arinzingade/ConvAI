@@ -12,7 +12,7 @@ export const CheckVerification = async ()=>{
             return false 
         }
     }catch(error){
-        alert('error verifying the token')
+      console.log('error verifying the token')
     }
    
 }

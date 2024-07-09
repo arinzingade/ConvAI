@@ -6,7 +6,10 @@ import SignUp from './components/SignUp';
 import { HomePage } from './components/HomePage';
 import useStore from './storage/store';
 import { CheckVerification } from './services/CheckVerification';
+import ServerDownPopup from './components/ServerDownPopUp';
 function App() {
+  const serverDown = useStore((state)=>state.serverDown)
+  const setServerDown=useStore((state)=>state.setServerDown)
   const setTokenVerified = useStore((state)=>state.setTokenVerified)
   useEffect(()=>{
     async function Verification(){
@@ -18,7 +21,9 @@ function App() {
   return (
     <>
      <BrowserRouter >
+     <ServerDownPopup isVisible={serverDown} onclose={()=>setServerDown(false)} />
     <Routes>
+    
       <Route path='/' element={<HomePage/>}></Route>
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/signUp' element={<SignUp/>}></Route>
