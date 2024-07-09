@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div className='p-2 flex justify-between text-lg'>
+    <div className='py-6 px-2 flex justify-between text-lg shadow-md '>
         <p>ConvAI</p>
         <div className='w-1/6'>
             <ul className='flex justify-around '>
