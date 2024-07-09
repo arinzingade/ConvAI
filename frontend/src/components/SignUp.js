@@ -19,7 +19,7 @@ const SignUp = () => {
          if(response.ok){
           alert('user created ')
          }else{
-          alert('not created')
+          console.log('not created')
          }
       }catch(error){
         console.log(error)

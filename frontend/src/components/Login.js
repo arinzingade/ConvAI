@@ -26,7 +26,7 @@ const Login = () => {
     setTokenVerified(true)
     navigate('/')
    }else{
-    alert('not logged in')
+    console.log('not logged in')
    }
 
    }
