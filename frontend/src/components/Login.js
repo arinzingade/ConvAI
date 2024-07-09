@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import {  useNavigate } from 'react-router-dom'
 import useStore from '../storage/store'
-import { ApiRequest } from '../services/apiRequest'
+import { ApiRequest } from '../services/ApiRequest'
 
 
 const Login = () => {

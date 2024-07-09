@@ -1,4 +1,4 @@
-import { ApiRequest } from "./apiRequest"
+import { ApiRequest } from "./ApiRequest"
 
 export const FetchingCharacters=async ()=>{
     const response = await ApiRequest('http://127.0.0.1:5000/api/CharactersList',{

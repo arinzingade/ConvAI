@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ApiRequest } from '../services/apiRequest'
+import { ApiRequest } from '../services/ApiRequest'
 
 const SignUp = () => {
     const [username,setUsername]=useState('')

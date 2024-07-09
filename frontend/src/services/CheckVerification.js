@@ -1,4 +1,4 @@
-import { ApiRequest } from "./apiRequest"
+import { ApiRequest } from "./ApiRequest"
 
 export const CheckVerification = async ()=>{
     try{
