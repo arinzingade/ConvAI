@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 import useStore from '../storage/store'
+import { CharactersList } from './CharactersList'
 
 export const HomePage = () => {
     const tokenVerified =useStore((state)=>state.tokenVerified)
@@ -10,6 +11,7 @@ export const HomePage = () => {
         {tokenVerified ? 
   ( <div>
     you are logged in
+    <CharactersList></CharactersList>
     </div>):
        (
         <div className='w-full mt-20 text-4xl flex justify-center items-center'>
