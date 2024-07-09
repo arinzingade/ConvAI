@@ -16,7 +16,7 @@ export const HomePage = () => {
     <CharactersList></CharactersList>
     </div>):
        (
-        <div className='w-full h-full text-4xl flex flex-col justify-center items-center text-[#6C757D] '>
+        <div className='w-full h-3/4 text-4xl flex flex-col justify-center items-center text-[#6C757D] '>
         <p>Login to view various characters and
           <span className='text-5xl text-blue-400'> Interact</span>  </p>
           <div  className='w-full flex justify-center'>
