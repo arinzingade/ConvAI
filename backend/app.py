@@ -5,25 +5,19 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
+import jwt
+from datetime import datetime, timedelta
+
+##inHouse
+from functions import TokenAuthentication
 
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-app = Flask(__name__)
-app.secret_key = 'whiteKnight'
-app.config['JWT_SECRET_KEY'] = 'jwtKnight'
-app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-
-CORS(app,origins=["http://localhost:3000"],supports_credentials=True)
-jwt = JWTManager(app)
- 
- 
-mongo_uri = os.getenv('MONGO_URI')
-client = MongoClient(mongo_uri)
-db = client.mydatabase
-users_collection = db.users
+from extensions import app, users_collection
+from functions import TokenAuthentication
 
 @app.route('/api/data')
 def get_data():
@@ -49,16 +43,24 @@ def signup():
         return jsonify({"message": "Username or email already exists"}), 400
     
     hashed_password = generate_password_hash(password)
-    users_collection.insert_one({"username": username, "email": email, "password": hashed_password})
+    user = {"username": username, "email": email, "password": hashed_password}
+    users_collection.insert_one(user)
 
-    access_token = create_access_token(identity={'username': username, 'password': password})
+    token = jwt.encode({
+        'user': username,
+        'expiration' : str(datetime.utcnow() + timedelta(hours = 24))
+
+    },
+        app.config['SECRET_KEY'],
+        algorithm="HS256")
+
+    if isinstance(token, bytes):
+        token = token.decode('utf-8')
 
     response = make_response(jsonify({"message" : "Signup Successful"}), 201)
-    response.set_cookie('access_token', access_token, httponly=True, secure=True)
+    response.set_cookie('access_token', token, httponly=True, secure=True)
 
     return response
-
-
 
 @app.route('/api/login', methods=['POST'])
 def login():
@@ -74,24 +76,32 @@ def login():
     if not user or not check_password_hash(user['password'], password):
         return jsonify({"message": "Invalid username or password"}), 401
     
+    token = jwt.encode({
+        'user': user['username'],
+        'expiration' : str(datetime.utcnow() + timedelta(hours = 24))
+
+    },
+        app.config['SECRET_KEY'],
+        algorithm="HS256")
     
-    access_token = create_access_token(identity={'username': user['username'], 'password' : password})
+    if isinstance(token, bytes):
+        token = token.decode('utf-8')
 
     response = make_response(jsonify({"message" : "Login Successful"}), 200)
-    response.set_cookie('access_token', access_token, httponly=True, secure=True)
+    response.set_cookie('access_token', token, httponly=True, secure=True)
 
     return response
 
 @app.route('/api/protected', methods = ['GET'])
-@jwt_required()
-def protected():
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as = current_user), 200
+@TokenAuthentication.token_required
+def protected(current_user):
+    return jsonify({'message': f'Hello, {current_user}! This is a protected route.'}), 200
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
     return jsonify({"message": "Logout successful"}), 200
+
 
 ##@app.route('/api/characters', method = ['GET'])
 ##def get_char():
