@@ -102,7 +102,16 @@ def logout():
     session.pop('username', None)
     return jsonify({"message": "Logout successful"}), 200
 
+<<<<<<< HEAD
+# @app.route('/api/CharactersList',methods=['GET'])
+# def get_CharacterList():
+#     Characters=list(Characters_collection.find())
+#     for Character in Characters
+#     Character['_id']=str(Character['_id'])
+#     return jsonify(Characters),200
+=======
 
 ##@app.route('/api/characters', method = ['GET'])
 ##def get_char():
     ##pass
+>>>>>>> 1e0286b5ec68e1156fccd23c31a0dd30bbc2dde3

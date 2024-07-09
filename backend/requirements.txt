@@ -7,7 +7,10 @@ werkzeug
 python-dotenv
 email_validator
 flask_jwt_extended
+<<<<<<< HEAD
+=======
 timedelta
 datetime
 
+>>>>>>> 1e0286b5ec68e1156fccd23c31a0dd30bbc2dde3
 

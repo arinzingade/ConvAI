@@ -1,13 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
+import {  useNavigate } from 'react-router-dom'
+import useStore from '../storage/store'
+import { ApiRequest } from '../services/ApiRequest'
+
 
 const Login = () => {
     const [username,setUsername]=useState('')
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
-   
-   async  function handleSubmit(){
-   const response = await fetch('http://localhost:5000/api/login',{
+    const setTokenVerified = useStore((state)=>state.setTokenVerified)
+   const navigate = useNavigate()
+   async  function handleSubmit(e){
+    e.preventDefault()
+   const response = await ApiRequest('http://127.0.0.1:5000/api/login',{
     method:'POST',
     headers:{
         'Content-Type':'application/json'
@@ -17,9 +23,10 @@ const Login = () => {
    })
    
    if(response.ok){
-    alert('successfully logged in')
+    setTokenVerified(true)
+    navigate('/')
    }else{
-    alert('not logged in')
+    console.log('not logged in')
    }
 
    }
