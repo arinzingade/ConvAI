@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { ApiRequest } from '../services/apiRequest'
 
 const SignUp = () => {
     const [username,setUsername]=useState('')
@@ -7,7 +8,7 @@ const SignUp = () => {
     async function handleSubmit(e){
       e.preventDefault()
       try{
-        const response = await fetch('http://127.0.0.1:5000/api/signup',{
+        const response = await ApiRequest('http://127.0.0.1:5000/api/signup',{
           method:'POST',
           headers:{
               'Content-Type':'application/json'

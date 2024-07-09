@@ -1,6 +1,8 @@
+import { ApiRequest } from "./apiRequest"
+
 export const CheckVerification = async ()=>{
     try{
-        const response = await fetch('http://127.0.0.1:5000/api/protected',{
+        const response = await ApiRequest('http://127.0.0.1:5000/api/protected',{
             method:'GET',
             credentials:'include'
         })

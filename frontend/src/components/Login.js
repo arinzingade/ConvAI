@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import {  useNavigate } from 'react-router-dom'
 import useStore from '../storage/store'
+import { ApiRequest } from '../services/apiRequest'
 
 
 const Login = () => {
@@ -12,7 +13,7 @@ const Login = () => {
    const navigate = useNavigate()
    async  function handleSubmit(e){
     e.preventDefault()
-   const response = await fetch('http://127.0.0.1:5000/api/login',{
+   const response = await ApiRequest('http://127.0.0.1:5000/api/login',{
     method:'POST',
     headers:{
         'Content-Type':'application/json'
