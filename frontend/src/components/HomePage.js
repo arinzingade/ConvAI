@@ -13,7 +13,7 @@ export const HomePage = () => {
         {tokenVerified ? 
   ( <div>
     you are logged in
-    <CharactersList></CharactersList>
+    {/* <CharactersList></CharactersList> */}
     </div>):
        (
         <div className='w-full h-3/4 text-4xl flex flex-col justify-center items-center text-[#6C757D] '>
