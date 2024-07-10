@@ -7,9 +7,17 @@ export const CheckVerification = async ()=>{
             credentials:'include'
         })
         if(response.status===200){
-            return true
+            const data = await response.json()
+            // since the response is in json parse it . 
+            return {
+                tokenBoolean:true,
+                username:data.username
+            }
         }else{
-            return false 
+            return {
+                tokenBoolean:false,
+                username:''
+            }
         }
     }catch(error){
       console.log('error verifying the token')

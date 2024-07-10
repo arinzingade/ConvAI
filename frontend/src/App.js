@@ -11,10 +11,12 @@ function App() {
   const serverDown = useStore((state)=>state.serverDown)
   const setServerDown=useStore((state)=>state.setServerDown)
   const setTokenVerified = useStore((state)=>state.setTokenVerified)
+  const setUsername = useStore((state)=>state.setUsername)
   useEffect(()=>{
     async function Verification(){
       const response = await CheckVerification()
-      setTokenVerified(response)
+      setTokenVerified(response.tokenBoolean)
+      setUsername(response.username)
     }
     Verification()
   },[setTokenVerified])

@@ -11,8 +11,8 @@ export const HomePage = () => {
     <div className='w-screen h-screen'>
     <Navbar></Navbar>
         {tokenVerified ? 
-  ( <div>
-    you are logged in
+  ( <div className='h-1/2 text-4xl flex justify-center items-center'>
+    You are logged in
     {/* <CharactersList></CharactersList> */}
     </div>):
        (
