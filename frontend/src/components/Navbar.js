@@ -22,6 +22,10 @@ const Navbar = () => {
          <ul className='flex justify-around '>
              <li><Link to='/login'>login</Link></li>
              <li><Link to='/signup'>signUp</Link></li>
+             <div className='flex flex-col items-center'>
+          <CgProfile size={16}/>
+          <p className='text-sm'>Guest</p>
+          </div>
          </ul>
      </div>
         }
