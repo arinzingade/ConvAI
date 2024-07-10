@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import useStore from '../storage/store'
 import { CgProfile } from "react-icons/cg";
+import { LogoutUser } from '../services/CheckVerification';
 
 const Navbar = () => {
   const tokenVerified =useStore((state)=>state.tokenVerified)
@@ -11,7 +12,7 @@ const Navbar = () => {
         <p>ConvAI</p>
         {tokenVerified ?
          <div className='w-1/6 flex justify-around items-center'>
-          <p>logout</p>
+          <button onClick={()=>LogoutUser()}>logout</button>
           <div className='flex flex-col items-center'>
           <CgProfile size={16}/>
           <p className='text-sm'>{username}</p>
