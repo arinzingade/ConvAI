@@ -6,7 +6,7 @@ const DebateRoom = () => {
         <div className='w-1/4 h-full bg-white shadow-lg '></div>
         <div className='w-3/4 h-full flex justify-center items-end'>
             <div className='w-3/4  sticky bottom-10 '>
-                <input type='text' className='w-full shadow-2xl  rounded-2xl  py-10 '></input>
+                <input type='text' className='w-full shadow-2xl  rounded-2xl  py-3 px-10 focus:outline-none border-2 border-black '></input>
             </div>
         </div>
     </div>
