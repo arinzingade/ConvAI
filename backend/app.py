@@ -100,9 +100,14 @@ def protected(current_user):
 @app.route('/api/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
+<<<<<<< HEAD
     response = jsonify({"message": "Logout successful"})
     response.set_cookie('session', '', expires=0)
     return '', 200
+=======
+    return jsonify({"message": "Logout successful"}), 200
+
+>>>>>>> 1a5a507857739f70561848942c982c5071ca2ec7
 # @app.route('/api/CharactersList',methods=['GET'])
 # def get_CharacterList():
 #     Characters=list(Characters_collection.find())

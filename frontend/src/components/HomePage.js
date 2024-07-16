@@ -1,7 +1,6 @@
 import React from 'react'
 import Navbar from './Navbar'
 import useStore from '../storage/store'
-import { CharactersList } from './CharactersList'
 import image from '../images/loggedOutBackground.jpg'
 
 export const HomePage = () => {
@@ -20,7 +19,8 @@ export const HomePage = () => {
         <p>Login to view various characters and
           <span className='text-5xl text-blue-400'> Interact</span>  </p>
           <div  className='w-full flex justify-center'>
-            <img src={image} className='max-h-72 object-contain'></img>
+            <img src={image} className='max-h-72 object-contain'
+            alt = "A Dog"></img>
           </div>
         </div>
        )
