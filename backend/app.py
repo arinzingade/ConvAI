@@ -95,13 +95,19 @@ def login():
 @app.route('/api/protected', methods = ['GET'])
 @TokenAuthentication.token_required
 def protected(current_user):
-    return jsonify({'message': f'Hello, {current_user}! This is a protected route.'}), 200
+    return jsonify({'message': f'Hello, {current_user}! This is a protected route.','username':current_user}), 200
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
     session.pop('username', None)
+<<<<<<< HEAD
+    response = jsonify({"message": "Logout successful"})
+    response.set_cookie('session', '', expires=0)
+    return '', 200
+=======
     return jsonify({"message": "Logout successful"}), 200
 
+>>>>>>> 1a5a507857739f70561848942c982c5071ca2ec7
 # @app.route('/api/CharactersList',methods=['GET'])
 # def get_CharacterList():
 #     Characters=list(Characters_collection.find())
