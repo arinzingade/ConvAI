@@ -1,7 +1,7 @@
-
+import {ApiRequest} from './ApiRequest'
 
 export const FetchingCharacters=async ()=>{
-    const response = await fetch('/api/CharactersList',{
+    const response = await ApiRequest('/api/CharactersList',{
         method:'GET',
     })
    if(!response.ok){

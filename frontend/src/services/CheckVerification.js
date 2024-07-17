@@ -1,13 +1,9 @@
-<<<<<<< HEAD
 import useStore from "../storage/store"
-import { ApiRequest } from "./ApiRequest"
-=======
->>>>>>> 1a5a507857739f70561848942c982c5071ca2ec7
-
+import { ApiRequest } from './ApiRequest'
 
 export const CheckVerification = async ()=>{
     try{
-        const response = await fetch('/api/protected',{
+        const response = await ApiRequest('/api/protected',{
             method:'GET',
             credentials:'include'
         })
@@ -31,13 +27,16 @@ export const CheckVerification = async ()=>{
 }
 export const LogoutUser= async ()=>{
     const setTokenVerified = useStore.getState().setTokenVerified
+    const setUsername =  useStore.getState().setUsername
     try{
-      const response= await ApiRequest('http://127.0.0.1:5000/api/logout',{
+      const response= await ApiRequest('/api/logout',{
             method:'POST',
             credentials:'include'
         })
         if(response.status===200){
-            setTokenVerified(false)      
+            setTokenVerified(false)    
+              setUsername('')
+              console.log('reaching logoutUser')
         }
     }
     catch(error){

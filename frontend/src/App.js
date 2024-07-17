@@ -8,6 +8,7 @@ import useStore from './storage/store';
 import { CheckVerification } from './services/CheckVerification';
 import ServerDownPopup from './components/ServerDownPopUp';
 import DebateRoom from './components/DebateRoom';
+
 function App() {
   const serverDown = useStore((state)=>state.serverDown)
   const setServerDown=useStore((state)=>state.setServerDown)
@@ -20,7 +21,7 @@ function App() {
       setUsername(response.username)
     }
     Verification()
-  },[setTokenVerified])
+  },[setTokenVerified,setUsername])
   return (
     <>
      <BrowserRouter >
