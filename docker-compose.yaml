@@ -3,6 +3,7 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile
     environment:
       - FLASK_SERVER=backend:5000
     ports:
@@ -15,6 +16,7 @@ services:
   backend:
     build:
       context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     depends_on:
