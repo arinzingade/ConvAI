@@ -10,8 +10,6 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    networks:
-      - convai-network
 
   backend:
     build:
@@ -23,21 +21,9 @@ services:
       - mongo
     environment:
       - MONGO_URI=mongodb+srv://arinzingade29:fJLzZFRORmMSlGlY@convai-data.irdkp9y.mongodb.net/?retryWrites=true&w=majority&appName=convai-data
-    networks:
-      - convai-network
+
 
   mongo:
     image: mongo:latest
     ports:
       - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    networks:
-      - convai-network
-
-volumes:
-  mongo-data: 
-
-networks:
-  convai-network:
-    driver: bridge
