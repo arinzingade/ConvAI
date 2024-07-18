@@ -105,6 +105,8 @@ def logout():
     response.set_cookie('access_token', '', expires=0, httponly=True, samesite='Lax')
     
     return response, 200    
+
+    
 # @app.route('/api/CharactersList',methods=['GET'])
 # def get_CharacterList():
 #     Characters=list(Characters_collection.find())
