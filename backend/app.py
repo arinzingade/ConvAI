@@ -106,7 +106,8 @@ def logout():
     
     return response, 200    
 
-    
+
+
 # @app.route('/api/CharactersList',methods=['GET'])
 # def get_CharacterList():
 #     Characters=list(Characters_collection.find())
