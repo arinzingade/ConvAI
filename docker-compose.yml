@@ -1,4 +1,4 @@
-version: '3.8'
+
 services:
   frontend:
     build:
@@ -17,12 +17,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo
     environment:
       - MONGO_URI=mongodb+srv://arinzingade29:fJLzZFRORmMSlGlY@convai-data.irdkp9y.mongodb.net/?retryWrites=true&w=majority&appName=convai-data
 
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
