@@ -1,4 +1,4 @@
-name: convai
+
 services:
   frontend:
     build:
