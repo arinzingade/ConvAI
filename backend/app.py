@@ -103,7 +103,6 @@ def logout():
     session.pop('username', None)
     response = make_response(jsonify({"message": "Logout successful"}))
     response.set_cookie('access_token', '', expires=0, httponly=True, samesite='Lax')
-    
     return response, 200    
 # @app.route('/api/CharactersList',methods=['GET'])
 # def get_CharacterList():
