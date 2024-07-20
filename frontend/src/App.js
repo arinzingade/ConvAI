@@ -8,6 +8,7 @@ import useStore from './storage/store';
 import { CheckVerification } from './services/CheckVerification';
 import ServerDownPopup from './components/ServerDownPopUp';
 import DebateRoom from './components/DebateRoom';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   const serverDown = useStore((state)=>state.serverDown)
@@ -32,6 +33,7 @@ function App() {
       <Route path='/login' element={<Login/>}></Route>
       <Route path='/signUp' element={<SignUp/>}></Route>
       <Route path='/debateRoom' element={<DebateRoom/>}></Route>
+      <Route path='/adminPanel' element={<AdminPanel/>}></Route>
     </Routes>
     </BrowserRouter>
     </>
