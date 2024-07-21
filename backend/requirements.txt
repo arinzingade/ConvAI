@@ -9,5 +9,9 @@ email_validator
 flask_jwt_extended
 timedelta
 datetime
+pytesseract
+pdfplumber
+python-docx
+
 
 
