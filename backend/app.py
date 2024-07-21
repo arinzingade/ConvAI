@@ -95,7 +95,8 @@ def login():
 @app.route('/api/protected', methods = ['GET'])
 @TokenAuthentication.token_required
 def protected(current_user):
-    return jsonify({'message': f'Hello, {current_user}! This is a protected route.','username':current_user}), 200
+    return jsonify({'message': f'Hello, {current_user}! This is a protected route.',
+                    'username':current_user}), 200
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
