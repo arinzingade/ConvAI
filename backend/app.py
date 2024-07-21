@@ -5,11 +5,12 @@ from flask_cors import CORS
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from email_validator import validate_email, EmailNotValidError
+
 import jwt
 from datetime import datetime, timedelta
 
 ##inHouse
-from functions import TokenAuthentication
+from functions import TokenAuthentication,TextExtractor
 
 from dotenv import load_dotenv
 import os
@@ -17,11 +18,11 @@ import os
 load_dotenv()
 
 from extensions import app, users_collection
-from functions import TokenAuthentication
+
 
 @app.route('/api/data')
 def get_data():
-    return jsonify({"message": "Hello From Flask"})
+    return jsonify({"message": "Hello From Flask"}),200
 
 @app.route('/api/signup', methods = ['POST'])
 def signup():
@@ -96,6 +97,55 @@ def login():
 @TokenAuthentication.token_required
 def protected(current_user):
     return jsonify({'message': f'Hello, {current_user}! This is a protected route.','username':current_user}), 200
+
+
+
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg','docx','pdf','bmp'}
+MAX_FILE_SIZE = 16 * 1024 * 1024
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def validate_file(file):
+    if file.filename == '':
+        return False, "No selected file"
+    if not allowed_file(file.filename):
+        return False, "File type not allowed"
+    if len(file.read()) > MAX_FILE_SIZE:
+        return False, "File too large"
+    file.seek(0)  
+    return True, ""
+@app.route('/api/Character_Data',method=['POST'])
+def character_data():
+    if 'files' not in request.files:
+        return jsonify({"error": "No files part in the request"}),400
+
+        name = request.form.get('name')
+        if not name :
+            return jsonify({'error':'name is required'}),400
+        
+        files=request.files.getlist('files')
+           all_extracted_text = ""
+         for file in files:
+        valid, error_message = validate_file(file)
+        if not valid:
+            return jsonify({"error": error_message}), 400
+
+           filename = secure_filename(file.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(file_path)
+
+        extracted_text = TextExtracter(file_path)
+         all_extracted_text += extracted_text + "\n"
+
+          character_data = {
+        'name': name,
+        'text': all_extracted_text
+    }
+    collection.insert_one(character_data)
+ return jsonify({"message": "Character successfully created"}), 200
+
+        
 
 @app.route('/api/logout', methods=['POST'])
 def logout():
