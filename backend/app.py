@@ -138,7 +138,7 @@ def character_data():
         'name': name,
         'text': all_extracted_text
     }
-    collection.insert_one(character_data)
+    character_collection.insert_one(character_data)
  return jsonify({"message": "Character successfully created"}), 200
 
         
