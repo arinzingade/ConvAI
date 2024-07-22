@@ -17,7 +17,7 @@ import os
 
 load_dotenv()
 
-from extensions import app, users_collection
+from extensions import app, users_collection,character_collection
 
 
 @app.route('/api/data')
@@ -100,7 +100,7 @@ def protected(current_user):
 
 
 
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg','docx','pdf','bmp'}
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg','docx','bmp'}
 MAX_FILE_SIZE = 16 * 1024 * 1024
 
 def allowed_file(filename):
@@ -119,22 +119,18 @@ def validate_file(file):
 def character_data():
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}),400
-
         name = request.form.get('name')
         if not name :
             return jsonify({'error':'name is required'}),400
-        
         files=request.files.getlist('files')
            all_extracted_text = ""
          for file in files:
         valid, error_message = validate_file(file)
         if not valid:
             return jsonify({"error": error_message}), 400
-
            filename = secure_filename(file.filename)
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(file_path)
-
         extracted_text = TextExtracter(file_path)
          all_extracted_text += extracted_text + "\n"
 

@@ -20,3 +20,4 @@ mongo_uri = os.getenv('MONGO_URI')
 client = MongoClient(mongo_uri)
 db = client.mydatabase
 users_collection = db.users
+character_collection = db.characters
