@@ -115,7 +115,7 @@ def validate_file(file):
         return False, "File too large"
     file.seek(0)  
     return True, ""
-@app.route('/api/Character_Data',method=['POST'])
+@app.route('/api/uploadFiles',method=['POST'])
 def character_data():
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}),400
@@ -129,8 +129,7 @@ def character_data():
         if not valid:
             return jsonify({"error": error_message}), 400
            filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        file.save(file_path)
+        
         extracted_text = TextExtracter(file_path)
          all_extracted_text += extracted_text + "\n"
 
