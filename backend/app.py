@@ -129,7 +129,10 @@ def character_data():
         if not valid:
             return jsonify({"error": error_message}), 400
            filename = secure_filename(file.filename)
-        
+        file_data = {
+            'name_char':filename,
+            'file':
+        }
         extracted_text = TextExtracter(file_path)
          all_extracted_text += extracted_text + "\n"
 
