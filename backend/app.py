@@ -152,7 +152,7 @@ def character_data():
             'name_char': name,
             'file_url': file_url,
             'flag': 0,  # Initial flag value
-            'upload_date': datetime.datetime.now()
+            'upload_date': str(datetime.datetime.now())
         }
         file_collection.insert_one(file_data)
 

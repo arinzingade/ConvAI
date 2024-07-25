@@ -29,7 +29,7 @@ const AdminPanel = () => {
     })
     console.log(files)
     try{
-        const response = await ApiRequest('/api/Character_Data',{
+        const response = await ApiRequest('/api/uploadFiles',{
             method:'POST',
             body:formData
         })
