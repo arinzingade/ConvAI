@@ -142,7 +142,7 @@ def character_data():
              file_url = upload_result['secure_url']
 
         
-        extracted_text = extract_text_from_stream(file.stream)
+        extracted_text = TextExtractor(file.stream)
          all_extracted_text += extracted_text + "\n"
 
          file_data = {
