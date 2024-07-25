@@ -8,6 +8,9 @@ from email_validator import validate_email, EmailNotValidError
 
 import jwt
 from datetime import datetime, timedelta
+import cloudinary
+import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
 
 ##inHouse
 from functions import TokenAuthentication,TextExtractor
@@ -17,8 +20,13 @@ import os
 
 load_dotenv()
 
-from extensions import app, users_collection,character_collection
+from extensions import app, users_collection,character_collection,file_collection
 
+cloudinary.config( 
+    cloud_name = "dewmhfhjr", 
+    api_key = "961845734912925", 
+    api_secret = "X-0x9-AqirPa9HgEIYT15DgqQKQ", 
+)
 
 @app.route('/api/data')
 def get_data():
@@ -128,15 +136,22 @@ def character_data():
         valid, error_message = validate_file(file)
         if not valid:
             return jsonify({"error": error_message}), 400
-           filename = secure_filename(file.filename)
-        file_data = {
-            'name_char':filename,
-            'file':
-        }
-        extracted_text = TextExtracter(file_path)
+
+             upload_result = cloudinary.uploader.upload(file)
+             file_url = upload_result['secure_url']
+
+        
+        extracted_text = extract_text_from_stream(file.stream)
          all_extracted_text += extracted_text + "\n"
 
-          character_data = {
+         file_data = {
+            'name_char': name,
+            'file_url': file_url,
+            'flag': 0,  # Initial flag value
+            'upload_date': datetime.datetime.now()
+        }
+        file_collection.insert_one(file_data)
+         character_data = {
         'name': name,
         'text': all_extracted_text
     }
