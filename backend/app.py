@@ -123,15 +123,15 @@ def character_data():
     # all_extracted_text = ""  # Initialize extracted text string
 
     for file in files:
-        # upload_result = cloudinary.uploader.upload(file)
-        # file_url = upload_result['secure_url']
+        upload_result = cloudinary.uploader.upload(file)
+        file_url = upload_result['secure_url']
 
         # Extract text from the file (commented out for now)
         # extracted_text = TextExtractor(file.stream)
         # all_extracted_text += extracted_text + "\n"
         file_data = {
             'name_char': name,
-            # 'file_url': file_url,
+            'file_url': file_url,
             'flag': 0,  # Initial flag value
             # 'upload_date': str(datetime.datetime.now())
         }
@@ -144,7 +144,7 @@ def character_data():
     # }
     # character_collection.insert_one(character_data)
 
-     return jsonify({"message": "Character successfully created"}), 200
+    return jsonify({"message": "Character successfully created"}), 200
 
 
         
