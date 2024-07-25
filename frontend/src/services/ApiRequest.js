@@ -3,7 +3,7 @@ import useStore from "../storage/store"
 export const ApiRequest= async (endpoint,options={})=>{
     const setServerDown = useStore.getState().setServerDown
     try{
-        const timeOut = 10000
+        const timeOut = 5000
         const controller = new AbortController()
         const timeOutId = setTimeout(()=>controller.abort(),timeOut)
         const response = await fetch(endpoint,{

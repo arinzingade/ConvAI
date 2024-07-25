@@ -12,6 +12,6 @@ datetime
 pytesseract
 pdfplumber
 python-docx
-
+cloudinary
 
 
