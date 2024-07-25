@@ -109,50 +109,31 @@ def protected(current_user):
 
 
 
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg','docx','bmp'}
-MAX_FILE_SIZE = 16 * 1024 * 1024
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def validate_file(file):
-    if file.filename == '':
-        return False, "No selected file"
-    if not allowed_file(file.filename):
-        return False, "File type not allowed"
-    if len(file.read()) > MAX_FILE_SIZE:
-        return False, "File too large"
-    file.seek(0)  
-    return True, ""
 @app.route('/api/uploadFiles', methods=['POST'])
 def character_data():
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}), 400
 
-    name = request.form.get('name')
+    name = request.form.get('characterName')
     if not name:
         return jsonify({'error': 'name is required'}), 400
 
     files = request.files.getlist('files')
-    all_extracted_text = ""  # Initialize extracted text string
+    # all_extracted_text = ""  # Initialize extracted text string
 
     for file in files:
-        valid, error_message = validate_file(file)
-        if not valid:
-            return jsonify({"error": error_message}), 400
-
-        upload_result = cloudinary.uploader.upload(file)
-        file_url = upload_result['secure_url']
+        # upload_result = cloudinary.uploader.upload(file)
+        # file_url = upload_result['secure_url']
 
         # Extract text from the file (commented out for now)
         # extracted_text = TextExtractor(file.stream)
         # all_extracted_text += extracted_text + "\n"
-
         file_data = {
             'name_char': name,
-            'file_url': file_url,
+            # 'file_url': file_url,
             'flag': 0,  # Initial flag value
-            'upload_date': str(datetime.datetime.now())
+            # 'upload_date': str(datetime.datetime.now())
         }
         file_collection.insert_one(file_data)
 
@@ -163,7 +144,7 @@ def character_data():
     # }
     # character_collection.insert_one(character_data)
 
-    return jsonify({"message": "Character successfully created"}), 200
+     return jsonify({"message": "Character successfully created"}), 200
 
 
         
