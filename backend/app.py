@@ -20,7 +20,7 @@ import os
 
 load_dotenv()
 
-from extensions import app, users_collection,character_collection,file_collection
+from extensions import app, users_collection,file_collection
 
 cloudinary.config( 
     cloud_name = "dewmhfhjr", 
@@ -124,40 +124,47 @@ def validate_file(file):
         return False, "File too large"
     file.seek(0)  
     return True, ""
-@app.route('/api/uploadFiles',method=['POST'])
+@app.route('/api/uploadFiles', methods=['POST'])
 def character_data():
     if 'files' not in request.files:
-        return jsonify({"error": "No files part in the request"}),400
-        name = request.form.get('name')
-        if not name :
-            return jsonify({'error':'name is required'}),400
-        files=request.files.getlist('files')
-           all_extracted_text = ""
-         for file in files:
+        return jsonify({"error": "No files part in the request"}), 400
+
+    name = request.form.get('name')
+    if not name:
+        return jsonify({'error': 'name is required'}), 400
+
+    files = request.files.getlist('files')
+    all_extracted_text = ""  # Initialize extracted text string
+
+    for file in files:
         valid, error_message = validate_file(file)
         if not valid:
             return jsonify({"error": error_message}), 400
 
-             upload_result = cloudinary.uploader.upload(file)
-             file_url = upload_result['secure_url']
+        upload_result = cloudinary.uploader.upload(file)
+        file_url = upload_result['secure_url']
 
-        
-        extracted_text = TextExtractor(file.stream)
-         all_extracted_text += extracted_text + "\n"
+        # Extract text from the file (commented out for now)
+        # extracted_text = TextExtractor(file.stream)
+        # all_extracted_text += extracted_text + "\n"
 
-         file_data = {
+        file_data = {
             'name_char': name,
             'file_url': file_url,
             'flag': 0,  # Initial flag value
             'upload_date': datetime.datetime.now()
         }
         file_collection.insert_one(file_data)
-         character_data = {
-        'name': name,
-        'text': all_extracted_text
-    }
-    character_collection.insert_one(character_data)
- return jsonify({"message": "Character successfully created"}), 200
+
+    # Commented out for now
+    # character_data = {
+    #     'name': name,
+    #     'text': all_extracted_text
+    # }
+    # character_collection.insert_one(character_data)
+
+    return jsonify({"message": "Character successfully created"}), 200
+
 
         
 
