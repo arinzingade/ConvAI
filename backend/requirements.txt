@@ -13,5 +13,5 @@ pytesseract
 pdfplumber
 python-docx
 cloudinary
-
-
+requests
+pyPDF2
