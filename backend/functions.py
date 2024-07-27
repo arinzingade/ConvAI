@@ -107,11 +107,13 @@ class TextFromFlaggedFiles:
                 print(f"Error processing file {file_record['_id']}: {e}")
 
 class GetUsername():
+    
     def get_username(token):
+        secret_key = os.getenv("FLASK_SECRET_KEY")
         if not token:
             return jsonify({'error': 'Token is missing'}), 400
         
-        payload = jwt.decode(token, "whiteKnight", algorithms=["HS256"])
+        payload = jwt.decode(token, secret_key, algorithms=["HS256"])
         username = payload['user']
 
         return username
