@@ -14,7 +14,7 @@ export const ApiRequest= async (endpoint,options={})=>{
         return response
     }catch(error){
         setServerDown(true)
-        console.log('the error reaches here ')
+     
         return error
     }
 }
