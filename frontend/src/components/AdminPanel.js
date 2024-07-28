@@ -15,9 +15,23 @@ const AdminPanel = () => {
     SetSubmitted(true)
    }
    function handleFileChange(e,index){
-    const newFiles = {...files,[index]:e.target.files}
+    const newFiles = {...files,
+        [index]:{
+            files:e.target.files[0],
+            filename:''
+        }}
     setFiles(newFiles)
    }
+   function handleFileNameChange(e, index) {
+    const newFiles = {
+        ...files,
+        [index]: {
+            ...files[index],
+            fileName: e.target.value
+        }
+    };
+    setFiles(newFiles);
+}
     const  handleFormSubmit = async (e)=>{
     e.preventDefault()
     const formData = new FormData()
@@ -25,6 +39,7 @@ const AdminPanel = () => {
     Object.keys(files).forEach((key)=>{
         Array.from(files[key]).forEach((file)=>{
             formData.append('files',file)
+            formData.append('fileNames', files[key].fileName);
         })
     })
     console.log(files)
@@ -59,12 +74,13 @@ const AdminPanel = () => {
                     ></input>
                 {fields.map((element,index)=>{
                     return (
-                        <>
+                        <div className='flex justify-center gap-10'>
                          <input key={index} type='file' placeholder='add the doc' 
                          onChange={(e)=>handleFileChange(e,index)}
                          >
                         </input>
-                        </>
+                        <input type='text' placeholder='file name' onChange={handleFileNameChange}></input>
+                        </div>
                     )
                 })}
                  <div>   
