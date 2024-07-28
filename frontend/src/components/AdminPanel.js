@@ -29,7 +29,6 @@ const AdminPanel = () => {
     Object.keys(files).forEach((key)=>{
         Array.from(files[key]).forEach((file)=>{
             formData.append('files',files[key].file)
-            formData.append('fileNames', files[key].file.name);
         })
     })
     console.log(files)
