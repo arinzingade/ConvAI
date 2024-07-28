@@ -168,16 +168,20 @@ def character_data():
     #Filtering Conditions(For Later)
 
     files = request.files.getlist('files')
+    file_names = request.form.getlist('fileNames')
     if not files:
         return jsonify({'error': 'No files provided'}), 400
+    if len(files) != len(file_names):
+        return jsonify({'error': 'The number of files and file names must match'}), 400
+
 
     ## file_name = request.file.getList('name')
-    for file in files:
+    for file,file_name in zip(files, file_names):
         file_id = fs.put(file, filename=file.filename, metadata={'character_name': name})
         file_data = {
             'character_name': name,
             'file_id': file_id,  
-            ## 'file_name': file_name,
+            'file_name': file_name,
             'flag': 0
         }
         file_collection.insert_one(file_data)

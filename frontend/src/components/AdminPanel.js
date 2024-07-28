@@ -7,7 +7,7 @@ const AdminPanel = () => {
 
     const [submitted , SetSubmitted]=useState(false)
     const [name,setName]=useState('')
-    const [files,setFiles]=useState({}) // sending the backend 
+    const [files,setFiles]=useState({}) // object having files and filename
     
    function handleSubmit(e){
     e.preventDefault()
@@ -17,29 +17,19 @@ const AdminPanel = () => {
    function handleFileChange(e,index){
     const newFiles = {...files,
         [index]:{
-            files:e.target.files[0],
-            filename:''
+            files:e.target.files[0]
         }}
     setFiles(newFiles)
    }
-   function handleFileNameChange(e, index) {
-    const newFiles = {
-        ...files,
-        [index]: {
-            ...files[index],
-            fileName: e.target.value
-        }
-    };
-    setFiles(newFiles);
-}
+  
     const  handleFormSubmit = async (e)=>{
     e.preventDefault()
     const formData = new FormData()
     formData.append('characterName',name)
     Object.keys(files).forEach((key)=>{
         Array.from(files[key]).forEach((file)=>{
-            formData.append('files',file)
-            formData.append('fileNames', files[key].fileName);
+            formData.append('files',files[key].file)
+            formData.append('fileNames', files[key].file.name);
         })
     })
     console.log(files)
@@ -60,7 +50,7 @@ const AdminPanel = () => {
    }
    function displayInputFields(n){
     const newField = Array(parseInt(n)).fill('')
-    setFields(newField) 
+    setFields(newField);
    }
   return (
     <div className='w-screen h-screen flex justify-center items-center gap-20'>
@@ -79,7 +69,7 @@ const AdminPanel = () => {
                          onChange={(e)=>handleFileChange(e,index)}
                          >
                         </input>
-                        <input type='text' placeholder='file name' onChange={handleFileNameChange}></input>
+                        
                         </div>
                     )
                 })}
