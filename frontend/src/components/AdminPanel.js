@@ -15,9 +15,10 @@ const AdminPanel = () => {
     SetSubmitted(true)
    }
    function handleFileChange(e,index){
-    const newFiles = {...files,
+    const newFiles = {
+        ...files,
         [index]:{
-            files:e.target.files[0]
+            file:e.target.files[0]
         }}
     setFiles(newFiles)
    }
@@ -26,11 +27,9 @@ const AdminPanel = () => {
     e.preventDefault()
     const formData = new FormData()
     formData.append('characterName',name)
-    Object.keys(files).forEach((key)=>{
-        Array.from(files[key]).forEach((file)=>{
-            formData.append('files',files[key].file)
-        })
-    })
+    Object.keys(files).forEach((key) => {
+        formData.append('files', files[key].file);
+    });
     console.log(files)
     try{
         const response = await ApiRequest('/api/uploadFiles',{
@@ -63,7 +62,7 @@ const AdminPanel = () => {
                     ></input>
                 {fields.map((element,index)=>{
                     return (
-                        <div className='flex justify-center gap-10'>
+                        <div key={index} className='flex justify-center gap-10'>
                          <input key={index} type='file' placeholder='add the doc' 
                          onChange={(e)=>handleFileChange(e,index)}
                          >
@@ -71,6 +70,7 @@ const AdminPanel = () => {
                         
                         </div>
                     )
+                    
                 })}
                  <div>   
                   <button className='border-2 border-black p-2 ' type='submit'>Add new character </button>
