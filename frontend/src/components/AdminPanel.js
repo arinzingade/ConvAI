@@ -7,7 +7,7 @@ const AdminPanel = () => {
 
     const [submitted , SetSubmitted]=useState(false)
     const [name,setName]=useState('')
-    const [files,setFiles]=useState({}) // sending the backend 
+    const [files,setFiles]=useState({}) // object having files and filename
     
    function handleSubmit(e){
     e.preventDefault()
@@ -15,18 +15,21 @@ const AdminPanel = () => {
     SetSubmitted(true)
    }
    function handleFileChange(e,index){
-    const newFiles = {...files,[index]:e.target.files}
+    const newFiles = {
+        ...files,
+        [index]:{
+            file:e.target.files[0]
+        }}
     setFiles(newFiles)
    }
+  
     const  handleFormSubmit = async (e)=>{
     e.preventDefault()
     const formData = new FormData()
     formData.append('characterName',name)
-    Object.keys(files).forEach((key)=>{
-        Array.from(files[key]).forEach((file)=>{
-            formData.append('files',file)
-        })
-    })
+    Object.keys(files).forEach((key) => {
+        formData.append('files', files[key].file);
+    });
     console.log(files)
     try{
         const response = await ApiRequest('/api/uploadFiles',{
@@ -45,7 +48,7 @@ const AdminPanel = () => {
    }
    function displayInputFields(n){
     const newField = Array(parseInt(n)).fill('')
-    setFields(newField) 
+    setFields(newField);
    }
   return (
     <div className='w-screen h-screen flex justify-center items-center gap-20'>
@@ -59,13 +62,15 @@ const AdminPanel = () => {
                     ></input>
                 {fields.map((element,index)=>{
                     return (
-                        <>
+                        <div key={index} className='flex justify-center gap-10'>
                          <input key={index} type='file' placeholder='add the doc' 
                          onChange={(e)=>handleFileChange(e,index)}
                          >
                         </input>
-                        </>
+                        
+                        </div>
                     )
+                    
                 })}
                  <div>   
                   <button className='border-2 border-black p-2 ' type='submit'>Add new character </button>

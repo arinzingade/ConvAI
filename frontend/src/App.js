@@ -9,6 +9,10 @@ import { CheckVerification } from './services/CheckVerification';
 import ServerDownPopup from './components/ServerDownPopUp';
 import DebateRoom from './components/DebateRoom';
 import AdminPanel from './components/AdminPanel';
+import CharacterList from './components/CharacterList';
+import { AdminChoice } from './components/AdminChoice';
+import AdminDashboard from './components/AdminDashboard';
+import CharacterForm from './components/CharacterForm';
 
 function App() {
   const serverDown = useStore((state)=>state.serverDown)
@@ -34,6 +38,10 @@ function App() {
       <Route path='/signUp' element={<SignUp/>}></Route>
       <Route path='/debateRoom' element={<DebateRoom/>}></Route>
       <Route path='/adminPanel' element={<AdminPanel/>}></Route>
+      <Route path='/List' element={<CharacterList/>}></Route>
+      <Route path='/choice' element={<AdminChoice/>}></Route>
+      <Route path='/AdminDashboard' element={<AdminDashboard/>}></Route>
+      <Route path='/choice/form' element={<CharacterForm/>}></Route>
     </Routes>
     </BrowserRouter>
     </>
