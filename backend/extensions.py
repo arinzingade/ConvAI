@@ -10,7 +10,7 @@ import gridfs
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = os.getenv('FLASK_SECRET_KEY')
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'whiteKnight')
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 app.config['JWT_TOKEN_LOCATION'] = [os.getenv('JWT_TOKEN_LOCATION')]
 
