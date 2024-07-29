@@ -21,6 +21,9 @@ load_dotenv()
 
 from extensions import app, users_collection,file_collection, character_collection, fs
 
+secKey = app.config['SECRET_KEY']
+print(type(secKey))
+
 cloudinary.config( 
     cloud_name = os.getenv('CLOUD_NAME'), 
     api_key = os.getenv('CLOUD_API'), 
@@ -88,7 +91,6 @@ def login():
     token = jwt.encode({
         'user': user['username'],
         'expiration' : str(datetime.now() + timedelta(hours = 24))
-
     },
         app.config['SECRET_KEY'],
         algorithm="HS256")
@@ -160,25 +162,24 @@ def get_char():
 def character_data():
     if 'files' not in request.files:
         return jsonify({"error": "No files part in the request"}), 400
-    files = request.files.getlist('files')
+
     name = request.form.get('characterName')
     if not name:
         return jsonify({'error': 'name is required'}), 400
     
     #Filtering Conditions(For Later)
 
-   
+    files = request.files.getlist('files')
     if not files:
         return jsonify({'error': 'No files provided'}), 400
 
     ## file_name = request.file.getList('name')
     for file in files:
-       #extracting the filename from file object
         file_id = fs.put(file, filename=file.filename, metadata={'character_name': name})
         file_data = {
             'character_name': name,
             'file_id': file_id,  
-            'file_name': file.filename,
+            ## 'file_name': file_name,
             'flag': 0
         }
         file_collection.insert_one(file_data)
