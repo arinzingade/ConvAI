@@ -11,6 +11,7 @@ import DebateRoom from './components/DebateRoom';
 import AdminPanel from './components/AdminPanel';
 import CharacterList from './components/CharacterList';
 import { AdminChoice } from './components/AdminChoice';
+import AdminDashboard from './components/AdminDashboard';
 
 function App() {
   const serverDown = useStore((state)=>state.serverDown)
@@ -38,6 +39,7 @@ function App() {
       <Route path='/adminPanel' element={<AdminPanel/>}></Route>
       <Route path='/List' element={<CharacterList/>}></Route>
       <Route path='/choice' element={<AdminChoice/>}></Route>
+      <Route path='/AdminDashboard' element={<AdminDashboard/>}></Route>
     </Routes>
     </BrowserRouter>
     </>
