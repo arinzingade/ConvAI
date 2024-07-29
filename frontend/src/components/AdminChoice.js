@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 export const AdminChoice = () => {
     const navigate = useNavigate()
     function handleSubmit(){
-        navigate('/adminPanel')
+        navigate('/choice/form')
     }
   return (
   <div className='w-screen h-screen'>

@@ -12,6 +12,7 @@ import AdminPanel from './components/AdminPanel';
 import CharacterList from './components/CharacterList';
 import { AdminChoice } from './components/AdminChoice';
 import AdminDashboard from './components/AdminDashboard';
+import CharacterForm from './components/CharacterForm';
 
 function App() {
   const serverDown = useStore((state)=>state.serverDown)
@@ -40,6 +41,7 @@ function App() {
       <Route path='/List' element={<CharacterList/>}></Route>
       <Route path='/choice' element={<AdminChoice/>}></Route>
       <Route path='/AdminDashboard' element={<AdminDashboard/>}></Route>
+      <Route path='/choice/form' element={<CharacterForm/>}></Route>
     </Routes>
     </BrowserRouter>
     </>
