@@ -5,7 +5,7 @@ const CharacterForm = () => {
   async  function handleSubmit(e){
         e.preventDefault()
         try{
-            const response = await fetch('/createChar',{
+            const response = await fetch('/api/createChar',{
                 method:'POST',
                 body:name,
                 credentials:'include'
@@ -20,9 +20,9 @@ const CharacterForm = () => {
     }
   return (
     <div>
-        <form>
-            <input type='text' placeholder='name of the character' onChange={(e)=>setName(e.target.value)}></input>
-            <button onClick={handleSubmit}></button>
+        <form className='flex flex-col gap-10 items-center m-10 '>
+            <input type='text' placeholder='name of the character' onChange={(e)=>setName(e.target.value)} className='border-2 border-black px-5 py-2 focus:outline-none'></input>
+            <button onClick={handleSubmit} className='border-2 border-black px-5 py-2 '>submit</button>
         </form>
     </div>
   )
